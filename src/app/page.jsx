@@ -1,9 +1,28 @@
-import Card from "@/app/ui/home/cards";
+'use client'
 
-export default async function Page() {
+import CardWrapper from "@/app/ui/home/cards"
+import FilterCountries from "@/app/ui/home/filter"
+
+import { Context } from "@/app/context/context"
+
+import { useState } from "react"
+
+export default function Page() {
+
+  const [sortLetter, setSortLetter] = useState('growing')
+  const [sortContinent, setSortContinent] = useState('All')
+  const [sortSearch, setSortSearch] = useState('')
+
   return (
-  <section className="max-w-[1440] p-4 gap-4 mx-auto mt-6 grid grid-cols-1 md:grid-cols-3 xl:grid-cols-5">
-    <Card/>
-  </section>
+  <main className="max-w-[1440] px-4 mx-auto">
+  <Context.Provider value={{
+    sortLetter, setSortLetter, 
+    sortContinent, setSortContinent, 
+    sortSearch, setSortSearch}}>
+    <FilterCountries/>
+
+    <CardWrapper/>
+  </Context.Provider>
+  </main>
   );
 }
